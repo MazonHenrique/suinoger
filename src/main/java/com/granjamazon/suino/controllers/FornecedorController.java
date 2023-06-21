@@ -25,14 +25,11 @@ public class FornecedorController {
     @Autowired
     FornecedorRepository fornecedorRepository;
 
+    
     @GetMapping
     public ResponseEntity<?> getAll(){
-        return new ResponseEntity<>(montarDTO(), HttpStatus.OK);
-    }
-
-    public List<FornecedorRespostaListaDTO> montarDTO(){
         List<Fornecedor> fornecedores = fornecedorRepository.findAll();
-        return fornecedores.stream().map(
+        return new ResponseEntity<>(fornecedores.stream().map(
                 item -> FornecedorRespostaListaDTO.builder()
                     .id(item.getId())
                     .nome(item.getNome())
@@ -40,7 +37,7 @@ public class FornecedorController {
                     .cidade(item.getCidade())
                     .estado(item.getEstado())
                     .build()
-        ).collect(Collectors.toList());
+        ).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @PostMapping
