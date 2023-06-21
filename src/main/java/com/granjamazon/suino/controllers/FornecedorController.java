@@ -1,6 +1,7 @@
 package com.granjamazon.suino.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import com.granjamazon.suino.entities.Fornecedor;
 import com.granjamazon.suino.repositories.FornecedorRepository;
 
 import jakarta.validation.Valid;
+import lombok.var;
 
 @Controller
 @RequestMapping("/fornecedor")
@@ -24,7 +27,6 @@ public class FornecedorController {
     
     @Autowired
     FornecedorRepository fornecedorRepository;
-
     
     @GetMapping
     public ResponseEntity<?> getAll(){
@@ -38,6 +40,18 @@ public class FornecedorController {
                     .estado(item.getEstado())
                     .build()
         ).collect(Collectors.toList()), HttpStatus.OK);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> getById(@PathVariable long id){
+        try {
+            Fornecedor fornecedor = fornecedorRepository.findById(id).get();
+            return new ResponseEntity<>(new FornecedorRespostaListaDTO(fornecedor.getId(), 
+                                            fornecedor.getNome(), fornecedor.getEndereco(), fornecedor.getCidade(),
+                                            fornecedor.getEstado()), HttpStatus.OK);
+        }catch(Exception error){
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
+        }    
     }
 
     @PostMapping
