@@ -15,4 +15,5 @@ public class FornecedorRespostaListaDTO {
     private String endereco;
     private String cidade;
     private String estado;  
+    private Boolean isGenetic;
 }
