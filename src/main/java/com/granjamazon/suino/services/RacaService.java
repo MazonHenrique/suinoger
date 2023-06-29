@@ -12,7 +12,6 @@ import com.granjamazon.suino.entities.Raca;
 import com.granjamazon.suino.repositories.FornecedorRepository;
 import com.granjamazon.suino.repositories.RacaRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
