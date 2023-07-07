@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.granjamazon.suino.dto.RacaDTO;
@@ -12,7 +14,6 @@ import com.granjamazon.suino.entities.Raca;
 import com.granjamazon.suino.repositories.FornecedorRepository;
 import com.granjamazon.suino.repositories.RacaRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -45,9 +46,9 @@ public class RacaService {
 	    newRaca.setNomeComercial(raca.getNomeComercial());
 	    newRaca.setIsEnable(raca.getIsEnable());
 	    newRaca.setFornecedor(fornecedor);
-	    racaRepository.save(newRaca);
+    	racaRepository.save(newRaca);
 	    return new RacaDTO(newRaca.getId(), newRaca.getNome(), newRaca.getNomeComercial(), newRaca.getIsEnable(), 
-	    				   newRaca.getFornecedor().getId(), newRaca.getFornecedor().getNome());
+		    				   newRaca.getFornecedor().getId(), newRaca.getFornecedor().getNome());
 	}
 
 	public RacaDTO put(RacaDTO raca) {
@@ -62,5 +63,16 @@ public class RacaService {
 	    racaRepository.save(newRaca);
 	    return new RacaDTO(newRaca.getId(), newRaca.getNome(), newRaca.getNomeComercial(), newRaca.getIsEnable(), 
 	    				   newRaca.getFornecedor().getId(), newRaca.getFornecedor().getNome());
+	}
+
+	public String delet(long id) {
+        try{
+            racaRepository.deleteById(id);
+            return "Raça removido com sucesso";
+        }catch(Exception error){
+        	String retorno = error.getMessage();
+            return retorno;
+        }
+		
 	}
 }
