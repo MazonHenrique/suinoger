@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.granjamazon.suino.dto.RacaDTO;
-import com.granjamazon.suino.entities.Fornecedor;
+import com.granjamazon.suino.repositories.RacaRepository;
 import com.granjamazon.suino.services.RacaService;
 
 import jakarta.validation.Valid;
@@ -47,14 +47,30 @@ public class RacaController {
             return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+<<<<<<< HEAD
    
     @DeleteMapping("{id}")
     public ResponseEntity<?> delet(@PathVariable long id){
         try{
             return new ResponseEntity<>(racaService.delet(id), HttpStatus.OK);
+=======
+    
+    @Autowired
+    RacaRepository racaRepository;
+    
+    @DeleteMapping
+    public ResponseEntity<?> delet(@PathVariable long id){
+
+        try{
+        	racaRepository.deleteById(id);
+            return new ResponseEntity<>("Raça removido com sucesso", HttpStatus.OK);
+>>>>>>> 4ba0b3c2b80164ff3f98706333e2572a4eaf068d
         }catch(Exception error){
             return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> 4ba0b3c2b80164ff3f98706333e2572a4eaf068d
 }
