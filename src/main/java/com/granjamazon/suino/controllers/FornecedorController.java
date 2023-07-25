@@ -1,7 +1,6 @@
 package com.granjamazon.suino.controllers;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import com.granjamazon.suino.entities.Fornecedor;
 import com.granjamazon.suino.repositories.FornecedorRepository;
 
 import jakarta.validation.Valid;
-import lombok.var;
 
 @Controller
 @RequestMapping("/fornecedor")

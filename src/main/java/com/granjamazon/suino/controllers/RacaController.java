@@ -28,7 +28,17 @@ public class RacaController {
     public ResponseEntity<?> getAll(){
         return new ResponseEntity<>(racaService.getAll(), HttpStatus.OK);
     }
-    
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> findById(@PathVariable long id){
+        try{    
+            RacaDTO racaDTO = racaService.getById(id);
+            return new ResponseEntity<>(racaDTO, HttpStatus.OK);
+        }catch(Exception error){
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> post(@Valid @RequestBody RacaDTO raca){
         try{

@@ -1,6 +1,7 @@
 package com.granjamazon.suino.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -35,6 +36,12 @@ public class RacaService {
                 		.build()
                 ).collect(Collectors.toList());
 	}
+
+   public RacaDTO getById(long id){
+		Optional<Raca> raca = racaRepository.findById(id);
+		return new RacaDTO(raca.get().getId(), raca.get().getNome(), raca.get().getNomeComercial(), 
+							raca.get().getIsEnable(), raca.get().getFornecedor().getId(), raca.get().getFornecedor().getNome());
+    }
 	
 	public RacaDTO post(RacaDTO raca) {
 	    Fornecedor fornecedor = fornecedorRepository.findById(raca.getFornecedor())
